@@ -11,6 +11,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreationAttributes } from 'sequelize';
+import { log } from 'console';
 
 @Injectable()
 export class UsersService {
@@ -56,7 +57,7 @@ export class UsersService {
       role: user.role,
     });
 
-    return { message: 'Muvaffaqiyatli login', token };
+    return { message: 'Muvaffaqiyatli login', token, user  };
   }
 
   async findAll(): Promise<User[]> {
@@ -84,6 +85,8 @@ export class UsersService {
   async uploadAvatar(id: number, filePath: string) {
     const user = await this.findOne(id);
     user.avatar = filePath;
+    console.log("rasm", filePath);
+    
     await user.save();
     return { message: 'Avatar yuklandi', avatar: filePath };
   }

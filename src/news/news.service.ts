@@ -40,6 +40,8 @@ export class NewsService {
   async uploadImage(id: number, imagePath: string) {
     const news = await this.getNewsById(id);
     news.image = imagePath;
+    console.log('Saved file:', news.image);
+
     return news.save();
   }
 }
